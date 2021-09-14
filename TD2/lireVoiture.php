@@ -1,6 +1,8 @@
 <?php
 require_once 'Model.php';
 require_once '../TD1/Voiture.php';
+require_once '../TD1/Utilisateur.php';
+require_once '../TD1/Trajet.php';
 
     /*
     $sql_request = "SELECT * FROM voiture";
@@ -32,6 +34,25 @@ require_once '../TD1/Voiture.php';
         $value->afficher();
         echo "<br>";
     }
+
+    $tab_voit = Utilisateur::getAllUtilisateurs();
+    $num = 0;
+    foreach ($tab_voit  as $key => $value) {
+        $num += 1;
+        echo "<h2>Utilisateur n°$num </h2><br>";
+        $value->afficher();
+        echo "<br>";
+    }
+
+    $tab_voit = Trajet::getAllTrajets();
+    $num = 0;
+    foreach ($tab_voit  as $key => $value) {
+        $num += 1;
+        echo "<h2>Trajet n°$num </h2><br>";
+        $value->afficher();
+        echo "<br>";
+    }
+
 
 
 
