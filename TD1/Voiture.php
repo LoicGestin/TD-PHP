@@ -1,6 +1,6 @@
 <?php
    
-class Voiture {
+class Voiture{
    
     private $marque;
     private $couleur;
@@ -29,8 +29,7 @@ class Voiture {
     public function getImmatriculation() {
         return $this->immatriculation;
     }
-   
-   public static function getAllVoitures(){
+    public static function getAllVoitures(){
 
        $sql_request = "SELECT * FROM voiture";
        try {
@@ -61,7 +60,42 @@ class Voiture {
             $this->immatriculation = $m;
         }
     }
-   
+    public static function getVoitureByImmat($immat) {
+        $sql = "SELECT * from voiture WHERE immatriculation=:nom_tag";
+        // Préparation de la requête
+        $req_prep = Model::getPDO()->prepare($sql);
+
+        $values = array(
+            "nom_tag" => $immat,
+            //nomdutag => valeur, ...
+        );
+        // On donne les valeurs et on exécute la requête
+        $req_prep->execute($values);
+
+        // On récupère les résultats comme précédemment
+        $req_prep->setFetchMode(PDO::FETCH_CLASS, 'Voiture');
+        $tab_voit = $req_prep->fetchAll();
+        // Attention, si il n'y a pas de résultats, on renvoie false
+        if (empty($tab_voit))
+            return false;
+        return $tab_voit[0];
+    }
+    public function save(){
+        $sql_request = "INSERT INTO voiture (immatriculation, marque, couleur) VALUES ('$this->immatriculation','$this->marque','$this->couleur')";
+        try {
+
+            Model::getPdo()->query($sql_request);
+
+        }
+        catch (PDOException $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage(); // affiche un message d'erreur
+            } else {
+                echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
+            }
+            die();
+        }
+    }
     // un constructeur
     public function __construct2($m, $c, $i) {
         $this->marque = $m;

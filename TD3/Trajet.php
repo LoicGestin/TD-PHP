@@ -60,20 +60,23 @@ class Trajet {
         return $this->$nom_attribut;
     }
     public static function findPassagers($id){
-        $sql_request = "SELECT utilisateur_login FROM trajet t JOIN passager p ON p.trajet_id = t.id WHERE t.id = :id";
-        try {
-            $rep = Model::getPdo()->query($sql_request);
-            $rep->setFetchMode(PDO::FETCH_CLASS, 'Trajet');
-            $tab_user = $rep->fetchAll();
-        }
-        catch (PDOException $e) {
-            if (Conf::getDebug()) {
-                echo $e->getMessage(); // affiche un message d'erreur
-            } else {
-                echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
-            }
-            die();
-        }
+        $sql = "SELECT * FROM utilisateur t 
+                        JOIN passager p ON p.utilisateur_login = t.login
+                        
+                        WHERE p.trajet_id = :nom_tag";
+
+        $req_prep = Model::getPDO()->prepare($sql);
+
+        $values = array(
+            "nom_tag" => $id,
+            //nomdutag => valeur, ...
+        );
+        // On donne les valeurs et on exécute la requête
+        $req_prep->execute($values);
+
+        $req_prep->setFetchMode(PDO::FETCH_CLASS, 'Utilisateur');
+        $tab_user = $req_prep->fetchAll();
+
         return $tab_user;
 
     }

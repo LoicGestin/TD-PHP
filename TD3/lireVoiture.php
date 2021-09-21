@@ -1,6 +1,6 @@
 <?php
 require_once 'Model.php';
-require_once '../TD1/Voiture.php';
+require_once 'Voiture.php';
 require_once '../TD1/Utilisateur.php';
 require_once '../TD1/Trajet.php';
 
@@ -54,12 +54,11 @@ require_once '../TD1/Trajet.php';
     }
 
     $tab_voit = Voiture::getVoitureByImmat("0707068A");
-    foreach ($tab_voit  as $key => $value) {
-        $num += 1;
-        echo "<h2>Trajet n°$num </h2><br>";
-        $value->afficher();
-        echo "<br>";
-    }
+    echo "<h1> TD3  voiture immat 0707068A</h1><br>";
+    $tab_voit->afficher();
+
+    $Voiture1 = new Voiture("teslaX","vert","ABC123");
+    $Voiture1->save();
 
 
 
