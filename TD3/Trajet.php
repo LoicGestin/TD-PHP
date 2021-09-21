@@ -80,7 +80,24 @@ class Trajet {
         return $tab_user;
 
     }
+    public static function deletePassager($data){
+        $sql_request = "DELETE FROM passager
+                        WHERE trajet_id = '$data[trajet_id]' AND utilisateur_login = '$data[utilisateur_login]'";
+        try {
 
+            Model::getPdo()->query($sql_request);
+
+        }
+        catch (PDOException $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage(); // affiche un message d'erreur
+            } else {
+                echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
+            }
+            die();
+        }
+
+    }
     public function set($nom_attribut) {
         $this->$nom_attribut = $nom_attribut;
     }

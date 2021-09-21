@@ -23,12 +23,7 @@ class Model
             }
             die();
         }
-
-
-
-
     }
-
     public static function getPdo()
     {
         if (is_null(self::$pdo)){

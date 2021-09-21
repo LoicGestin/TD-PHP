@@ -1,5 +1,5 @@
 <?php
-   
+require_once 'Trajet.php';
 class Utilisateur {
    
     private $login;
@@ -50,6 +50,26 @@ class Utilisateur {
     public function getLogin()
     {
         return $this->login;
+    }
+    public static function findTrajets($login){
+        $sql = "SELECT * FROM trajet t 
+                        JOIN passager p ON p.trajet_id= t.id
+                        WHERE p.utilisateur_login =:nom_tag";
+
+        $req_prep = Model::getPDO()->prepare($sql);
+
+        $values = array(
+            "nom_tag" => $login,
+            //nomdutag => valeur, ...
+        );
+        // On donne les valeurs et on exécute la requête
+        $req_prep->execute($values);
+
+        $req_prep->setFetchMode(PDO::FETCH_CLASS, 'Trajet');
+        $tab_trajet = $req_prep->fetchAll();
+
+        return $tab_trajet;
+
     }
 
 
