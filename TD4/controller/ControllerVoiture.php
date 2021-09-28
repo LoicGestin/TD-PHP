@@ -18,8 +18,7 @@ class ControllerVoiture {
         self::readAll();
     }
     public static function supp($imma){
-        $v = new ModelVoiture("rand","rand",$imma);
-        $v->supp();
+        ModelVoiture::supp($imma);
         self::readAll();
     }
 }

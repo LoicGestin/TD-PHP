@@ -96,12 +96,17 @@ class ModelVoiture{
             die();
         }
     }
-    public function supp(){
-        $sql_request = "DELETE FROM voiture WHERE immatriculation='$this->immatriculation';";
+    public static function supp($imma){
+        $sql_request = "DELETE FROM voiture WHERE immatriculation=:nom_tag;";
         try {
+            $req_prep = Model::getPDO()->prepare($sql_request);
 
-            Model::getPdo()->query($sql_request);
-
+            $values = array(
+                "nom_tag" => $imma,
+                //nomdutag => valeur, ...
+            );
+            $req_prep->execute($values);
+            $req_prep->setFetchMode(PDO::FETCH_CLASS, 'ModelVoiture');
         }
         catch (PDOException $e) {
             if (Conf::getDebug()) {
