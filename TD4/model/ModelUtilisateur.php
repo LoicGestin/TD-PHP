@@ -24,7 +24,7 @@ class ModelUtilisateur {
         $sql_request = "SELECT * FROM utilisateur";
         try {
             $rep = Model::getPdo()->query($sql_request);
-            $rep->setFetchMode(PDO::FETCH_CLASS, 'Utilisateur');
+            $rep->setFetchMode(PDO::FETCH_CLASS, 'ModelUtilisateur');
             $tab_voit = $rep->fetchAll();
         }
         catch (PDOException $e) {
