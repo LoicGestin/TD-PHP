@@ -48,5 +48,26 @@ class ControllerVoiture {
         $pagetitle='ERREUR';
         require File::build_path(array("view","view.php"));
     }
+
+    public static function update($imma){
+        $controller='voiture';
+        $view='update';
+        $pagetitle='UPDATE VOITURE';
+        $immat = $imma;
+        require File::build_path(array("view","view.php"));
+    }
+    public static function updated($marque, $imma, $couleur){
+        $data['marque'] = $marque;
+        $data['immatriculation'] = $imma;
+        $data['couleur'] = $couleur;
+        ModelVoiture::updated($data);
+
+        $controller='voiture';
+        $view='updated';
+        $pagetitle='Voiture créée';
+
+        $tab_v = ModelVoiture::getAllVoitures();
+        require File::build_path(array("view","view.php"));
+    }
 }
 ?>

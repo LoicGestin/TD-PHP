@@ -96,6 +96,33 @@ class ModelVoiture{
             die();
         }
     }
+    public static function updated($data){
+        $sql_request = "UPDATE voiture
+                        SET marque =:nom_marque,
+                            couleur =:nom_couleur
+                        WHERE immatriculation =:nom_imma";
+        try {
+            $req_prep = Model::getPDO()->prepare($sql_request);
+
+            $values = array(
+                "nom_marque" => $data['marque'],
+                "nom_couleur" => $data['couleur'],
+                "nom_imma" => $data['immatriculation'],
+                //nomdutag => valeur, ...
+            );
+            $req_prep->execute($values);
+            $req_prep->setFetchMode(PDO::FETCH_CLASS, 'ModelVoiture');
+        }
+        catch (PDOException $e) {
+            if (Conf::getDebug()) {
+                echo $e->getMessage(); // affiche un message d'erreur
+            } else {
+                echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
+            }
+            die();
+        }
+
+    }
     public static function deleteByImmat($imma){
         $sql_request = "DELETE FROM voiture WHERE immatriculation=:nom_tag;";
         try {
