@@ -1,26 +1,31 @@
 <?php
+
     require_once 'ControllerVoiture.php';
     // On recupère l'action passée dans l'URL
 
     //$created = $_GET['create'];
-        if(sizeof($_GET) == 0){
-            ControllerVoiture::create();
+        if(!isset($_GET['action'])){ // ou size($_GET) > 0
+            $action = "readAll";
+            ControllerVoiture::$action();
         }
         else {
-            $action = $_GET['action'];
+            $list_methode = get_class_methods('ControllerVoiture');
 
-            if ($action == "read") {
-                $immat = $_GET['immat']; // $_GET['immat'];
-                ControllerVoiture::$action($immat);
+            $action = $_GET['action'];
+            if (in_array($action,$list_methode)) {
+                if ($action == "read") {
+                    $immat = $_GET['immat']; // $_GET['immat'];
+                    ControllerVoiture::$action($immat);
+                } elseif ($action == "created") {
+                    ControllerVoiture::$action($_GET['Marque'], $_GET['immatriculation'], $_GET['Couleur']);
+                } elseif ($action == "supp") {
+                    ControllerVoiture::$action($_GET['immatri']);
+                } else {
+                    ControllerVoiture::$action();
+                }
             }
-            elseif ($action == "created"){
-                ControllerVoiture::$action($_GET['Marque'], $_GET['immatriculation'], $_GET['Couleur']);
-            }
-            elseif ($action == "supp"){
-                ControllerVoiture::$action($_GET['immatri']);
-            }
-            else {
-                ControllerVoiture::$action();
+            else{
+                ControllerVoiture::error();
             }
         }
 

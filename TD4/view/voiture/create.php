@@ -1,13 +1,3 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <title> Mon premier php </title>
-</head>
-
-<body>
-
-
 <form method="get" >
     <fieldset>
         <legend>Mon formulaire :</legend>
@@ -28,10 +18,4 @@
             <input type="submit" value="Envoyer" />
         </p>
     </fieldset>
-    <?php
-        echo "<a href=?action=readAll> Voulez vous retourner aux listes de voitures ? </a>";
-    ?>
-    </bod
 </form>
-</body>
-</html>

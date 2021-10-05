@@ -1,5 +1,5 @@
 <?php
-require_once 'Model.php';
+require_once File::build_path(array("model","Model.php"));
 class ModelVoiture{
    
     private $marque;
@@ -96,7 +96,7 @@ class ModelVoiture{
             die();
         }
     }
-    public static function supp($imma){
+    public static function deleteByImmat($imma){
         $sql_request = "DELETE FROM voiture WHERE immatriculation=:nom_tag;";
         try {
             $req_prep = Model::getPDO()->prepare($sql_request);
