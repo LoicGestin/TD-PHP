@@ -8,8 +8,8 @@ class ControllerVoiture {
         $pagetitle='Liste des voitures';//appel au modèle pour gerer la BD
         require File::build_path(array("view","view.php"));  //"redirige" vers la vue
     }
-    public static function read($immat){
-        $v = ModelVoiture::getVoitureByImmat($immat);
+    public static function read(){
+        $v = ModelVoiture::getVoitureByImmat($_GET['immat']);
         $controller='voiture';
         $view='detail';
         $pagetitle='Détail de la voiture';
@@ -21,8 +21,8 @@ class ControllerVoiture {
         $pagetitle='Creation Voiture';
         require File::build_path(array("view","view.php"));
     }
-    public static function created($marque, $imma, $couleur){
-        $v = new ModelVoiture($marque,$couleur,$imma);
+    public static function created(){
+        $v = new ModelVoiture($_GET['Marque'],$_GET['Couleur'],$_GET['immatriculation']);
         $v->save();
         $controller='voiture';
         $view='created';
@@ -30,17 +30,16 @@ class ControllerVoiture {
         $tab_v = ModelVoiture::getAllVoitures();
         require File::build_path(array("view","view.php"));
     }
-    public static function supp($imma){
-        ModelVoiture::deleteByImmat($imma);
+    public static function supp(){
+        ModelVoiture::deleteByImmat($_GET['immatri']);
         $controller='voiture';
         $view='deleted';
         $pagetitle='Voiture Supprimé ! ';
 
-        $immat = $imma;
+        $immat = $_GET['immatri'];
         $tab_v = ModelVoiture::getAllVoitures();
 
         require File::build_path(array("view","view.php"));
-
     }
     public static function error(){
         $controller='voiture';
@@ -49,17 +48,17 @@ class ControllerVoiture {
         require File::build_path(array("view","view.php"));
     }
 
-    public static function update($imma){
+    public static function update(){
         $controller='voiture';
         $view='update';
         $pagetitle='UPDATE VOITURE';
-        $immat = $imma;
+        $immat = $_GET['immatri'];
         require File::build_path(array("view","view.php"));
     }
-    public static function updated($marque, $imma, $couleur){
-        $data['marque'] = $marque;
-        $data['immatriculation'] = $imma;
-        $data['couleur'] = $couleur;
+    public static function updated(){
+        $data['marque'] = $_GET['Marque'];
+        $data['immatriculation'] = $_GET['immatriculation'];
+        $data['couleur'] = $_GET['Couleur'];
         ModelVoiture::updated($data);
 
         $controller='voiture';
