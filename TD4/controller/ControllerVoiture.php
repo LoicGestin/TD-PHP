@@ -64,7 +64,7 @@ class ControllerVoiture {
         $data['immatriculation'] = $_GET['immatriculation'];
         $data['couleur'] = $_GET['Couleur'];
 
-        ModelVoiture::updated($data);
+        ModelVoiture::update($data);
 
         $view='updated';
         $pagetitle='Voiture créée';

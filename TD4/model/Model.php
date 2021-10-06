@@ -117,15 +117,73 @@
 
             foreach ($data as $cle => $valeur) {
                 if(!($cle == $primary_key)){
-                    $sql_request = $sql_request . $cle . ":=" . $valeur . ", ";
+                    $sql_request = $sql_request . $cle. "=:" . $cle . ", ";
                 }
             }
             $sql_request =  rtrim($sql_request, "       ,");
-            $sql_request = $sql_request . " WHERE $primary_key:=$data[$primary_key]";
-
-            var_dump($sql_request);
-
-
+            $sql_request = $sql_request . " WHERE ".$primary_key."=:".$primary_key;
+            try {
+                $req_prep = Model::getPDO()->prepare($sql_request);
+                $values = array();
+                foreach ($data as $cle => $valeur) {
+                    $values = $values + array($cle => $valeur) ;
+                }
+                $req_prep->execute($values);
+                $req_prep->setFetchMode(PDO::FETCH_CLASS, $class_name);
             }
+            catch (PDOException $e) {
+                if (Conf::getDebug()) {
+                    echo $e->getMessage(); // affiche un message d'erreur
+                } else {
+                    echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
+                }
+                die();
+            }
+        }
+
+        public static function create($data)
+        {
+            $table_name = static::$object;
+            $class_name = "Model" . ucfirst($table_name);
+            $primary_key = static::$primary;
+            //INSERT INTO voiture (immatriculation, marque, couleur) VALUES ('$this->immatriculation','$this->marque','$this->couleur')";
+
+
+            $sql_request = "INSERT INTO $table_name ( ";
+
+            foreach ($data as $cle => $valeur) {
+                    $sql_request = $sql_request . $cle .  ", ";
+            }
+            $sql_request =  rtrim($sql_request, "       ,");
+
+            $sql_request = $sql_request . ") VALUES (";
+
+            foreach ($data as $cle => $valeur) {
+                $sql_request = $sql_request. ":" . $cle .  ", ";
+            }
+            $sql_request =  rtrim($sql_request, "       ,");
+
+            $sql_request = $sql_request . ");";
+            try {
+                $req_prep = Model::getPDO()->prepare($sql_request);
+                $values = array();
+                foreach ($data as $cle => $valeur) {
+                    $values = $values + array($cle => $valeur) ;
+                }
+                $req_prep->execute($values);
+                $req_prep->setFetchMode(PDO::FETCH_CLASS, $class_name);
+            }
+            catch (PDOException $e) {
+                if (Conf::getDebug()) {
+                    echo $e->getMessage(); // affiche un message d'erreur
+                } else {
+                    echo 'Une erreur est survenue <a href=""> retour a la page d\'accueil </a>';
+                }
+                die();
+            }
+
+        }
+
+
 
 }

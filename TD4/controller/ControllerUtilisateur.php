@@ -50,6 +50,13 @@ class ControllerUtilisateur
 
     public static function created(){
         $view='created';
+
+        $data['prenom'] = $_GET['prenom'];
+        $data['nom'] = $_GET['nom'];
+        $data['login'] = $_GET['login'];
+
+        ModelUtilisateur::update($data);
+
         require File::build_path(array("view","view.php"));
     }
     public static function updated(){
@@ -60,8 +67,11 @@ class ControllerUtilisateur
         $data['nom'] = $_GET['nom'];
         $data['login'] = $_GET['login'];
 
-        ModelVoiture::updated($data);
         ModelUtilisateur::update($data);
+
+        $pagetitle='Utilisateur update';
+
+        $tab_u = ModelUtilisateur::selectAll();
         require File::build_path(array("view","view.php"));
     }
 }
