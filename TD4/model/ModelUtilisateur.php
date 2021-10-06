@@ -1,11 +1,13 @@
 <?php
 
 require_once File::build_path(array("model","Model.php"));
-class ModelUtilisateur {
+class ModelUtilisateur extends Model {
 
     private $login;
     private $nom;
     private $prenom;
+    protected static $primary='login';
+    protected static $object = "utilisateur";
 
 
     // un constructeur

@@ -1,10 +1,12 @@
 <?php
 require_once File::build_path(array("model","Model.php"));
-class ModelVoiture{
+class ModelVoiture extends Model {
    
     private $marque;
     private $couleur;
     private $immatriculation;
+    protected static $primary="immatriculation";
+    protected static $object = "voiture";
 
     public function __construct($m = NULL, $c = NULL, $i = NULL) {
         if (!is_null($m) && !is_null($c) && !is_null($i)) {

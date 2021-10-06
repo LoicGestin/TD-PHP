@@ -2,6 +2,7 @@
 <?php
 
     foreach ($tab_u as $u)
-        echo "L'utilisateur ". $u->get("prenom") . " " . $u->get("nom") . " a comme login ". $u->get("login") . "<br>";
+        echo "<p>Utilisateur de Login : <a href=?action=read&controller=utilisateur&login=".rawurlencode($u->get("login")) .'>' . htmlspecialchars($u->get("login")) .
+        "</a> Supprimer l'utilisateur ? <a href=?action=supp&controller=utilisateur&login=".rawurlencode($u->get("login")) . "> YES </a></p>";
 
 ?>
