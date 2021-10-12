@@ -36,7 +36,7 @@ class ControllerTrajet
         $nbplaces="";
         $prix="";
         $conducteur_login="";
-
+        $tab_u = ModelUtilisateur::selectAll();
 
         require File::build_path(array("view","view.php"));
     }
@@ -53,7 +53,7 @@ class ControllerTrajet
         $nbplaces = $t->get("nbplaces");
         $prix = $t->get("prix");
         $conducteur_login = $t->get("conducteur_login");
-
+        $tab_u = ModelUtilisateur::selectAll();
         require File::build_path(array("view","view.php"));
     }
     public static function updated(){
@@ -68,7 +68,6 @@ class ControllerTrajet
 
         $view='updated';
         $pagetitle='Trajet créée';
-
         $tab_t = ModelTrajet::selectAll();
         require File::build_path(array("view","view.php"));
     }

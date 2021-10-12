@@ -26,7 +26,7 @@ if($act == "create"){
         </p>
         <p>
             <label for="date_id">Date</label> :
-            <?php echo "<input type='text' value='".htmlspecialchars($date) ."'name='date' id='date_id' required/>" ?>
+            <?php echo "<input type='date' value='".htmlspecialchars($date) ."'name='date' id='date_id' required/>" ?>
         </p>
         <p>
             <label for="nbplaces_id">NbPlaces</label> :
@@ -38,7 +38,13 @@ if($act == "create"){
         </p>
         <p>
             <label for="conducteur_id">Conducteur login</label> :
-            <?php echo "<input type='text' value='".htmlspecialchars($conducteur_login)."'name='conducteur_login' id='conducteur_id' required/>" ?>
+            <SELECT name="conducteur_login" id="conducteur_id" size="1" required>
+                <?php
+                foreach ($tab_u as $u)
+                    echo "<OPTION>".htmlspecialchars($u->get("login"))
+                ?>
+            </SELECT>
+           <?php //echo "<input type='text' value='".htmlspecialchars($conducteur_login)."'name='conducteur_login' id='conducteur_id' required/>" ?>
         </p>
         <?php echo "<input type='hidden' name='action' value=$tag2>"?>
         <?php echo "<input type='hidden' name='controller' value='trajet'>"?>
