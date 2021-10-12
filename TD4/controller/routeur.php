@@ -1,7 +1,8 @@
 <?php
 
     require_once 'ControllerVoiture.php';
-    require_once 'ControllerUtilisateur.php';
+    require_once 'ControllerUtilisateur.php'; // require_once File::build_path(array("controller","ControllerUtilisateur"));
+    require_once 'ControllerTrajet.php';
     // On recupère l'action passée dans l'URL
 
     //$created = $_GET['create'];

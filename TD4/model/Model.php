@@ -146,7 +146,6 @@
             $table_name = static::$object;
             $class_name = "Model" . ucfirst($table_name);
             $primary_key = static::$primary;
-            //INSERT INTO voiture (immatriculation, marque, couleur) VALUES ('$this->immatriculation','$this->marque','$this->couleur')";
 
 
             $sql_request = "INSERT INTO $table_name ( ";

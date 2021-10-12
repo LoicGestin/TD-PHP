@@ -26,10 +26,14 @@ class ControllerVoiture {
         require File::build_path(array("view","view.php"));
     }
     public static function created(){
-        $v = new ModelVoiture($_GET['Marque'],$_GET['Couleur'],$_GET['immatriculation']);
-        $v->save();
+
+        $data['marque'] = $_GET['Marque'];
+        $data['immatriculation'] = $_GET['immatriculation'];
+        $data['couleur'] = $_GET['Couleur'];
+
         $view='created';
         $pagetitle='Voiture créée';
+        ModelVoiture::create($data);
         $tab_v = ModelVoiture::selectAll();
         require File::build_path(array("view","view.php"));
     }

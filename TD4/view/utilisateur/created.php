@@ -1,3 +1,3 @@
 <?php require "list.php" ; ?>
 <br>
-<p>L'Utilisateur a bien été update !</p>
+<p>L'Utilisateur a bien été crée !</p>

@@ -50,12 +50,14 @@ class ControllerUtilisateur
 
     public static function created(){
         $view='created';
-
+        $pagetitle='Utilisateur crée';
         $data['prenom'] = $_GET['prenom'];
         $data['nom'] = $_GET['nom'];
         $data['login'] = $_GET['login'];
 
-        ModelUtilisateur::update($data);
+        ModelUtilisateur::create($data);
+
+        $tab_u = ModelUtilisateur::selectAll();
 
         require File::build_path(array("view","view.php"));
     }
